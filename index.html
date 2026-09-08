@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WSP-Casual Tournament Power Ranking</title>
   
-  <!-- ▼▼ CTPR用のOGP・メタ設定 ▼▼ -->
   <meta property="og:title" content="WSP-Casual Tournament Power Ranking">
   <meta property="og:description" content="スマパカジュアルトーナメントのランキング＆シード作成システム">
   <meta property="og:url" content="https://tesnoo.github.io/WSP-CTPR/">
@@ -24,28 +23,33 @@
     
     .top-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; gap: 15px; }
     .search-container { display: flex; gap: 8px; flex: 1; max-width: 400px; }
-    .search-container input { flex: 1; padding: 10px 12px; background: #0b0c10; border: 1px solid #45a29e; color: #fff; border-radius: 8px; font-size: 0.95rem; }
-    .search-container button { padding: 10px 16px; background: linear-gradient(135deg, #1f2833, #0b0c10); border: 1px solid #45a29e; color: #66fcf1; border-radius: 8px; font-weight: bold; cursor: pointer; }
-    .admin-btn { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #1f2833, #0b0c10); border: 1px solid #45a29e; color: #66fcf1; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1rem; cursor: pointer; white-space: nowrap; }
+    /* ▼ ダークピンク枠に変更 ▼ */
+    .search-container input { flex: 1; padding: 10px 12px; background: #0b0c10; border: 1px solid #D60B59; color: #fff; border-radius: 8px; font-size: 0.95rem; }
+    /* ▼ ダークピンク枠 ＆ 明るいピンク文字に変更 ▼ */
+    .search-container button { padding: 10px 16px; background: linear-gradient(135deg, #1f2833, #0b0c10); border: 1px solid #D60B59; color: #FF66B2; border-radius: 8px; font-weight: bold; cursor: pointer; }
+    .admin-btn { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #1f2833, #0b0c10); border: 1px solid #D60B59; color: #FF66B2; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1rem; cursor: pointer; white-space: nowrap; }
     
-    .log-container { background: #1f2833; padding: 20px; border-radius: 12px; border: 1px solid #45a29e; box-sizing: border-box; margin-bottom: 24px; }
-    .log-container h3 { color:#66fcf1; margin-top:0; border-bottom:1px solid #45a29e; padding-bottom:10px; font-size: 1rem; display: flex; align-items: center; gap: 8px;}
+    .log-container { background: #1f2833; padding: 20px; border-radius: 12px; border: 1px solid #D60B59; box-sizing: border-box; margin-bottom: 24px; }
+    .log-container h3 { color:#FF66B2; margin-top:0; border-bottom:1px solid #D60B59; padding-bottom:10px; font-size: 1rem; display: flex; align-items: center; gap: 8px;}
     .log-list { list-style: none; padding: 0; margin: 0; }
     .log-list li { margin-bottom: 16px; font-size: 0.9rem; line-height: 1.6; color: #c5c6c7; }
     .log-list li:last-child { margin-bottom: 0; }
-    .log-date { display: inline-block; background: #0b0c10; color: #ffd700; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-bottom: 6px; border: 1px solid #333; }
+    /* ▼ 日付のバッジは銀色に変更 ▼ */
+    .log-date { display: inline-block; background: #0b0c10; color: #E0E0E0; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-bottom: 6px; border: 1px solid #333; }
     
     .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
-    .page-btn { background-color: #1f2833; border: 1px solid #ffd700; color: #ffd700; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.95rem;}
-    .page-btn.active { background-color: #ffd700; color: #000; }
+    /* ▼ ページボタンの枠と文字を銀色に ▼ */
+    .page-btn { background-color: #1f2833; border: 1px solid #E0E0E0; color: #E0E0E0; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.95rem;}
+    .page-btn.active { background-color: #E0E0E0; color: #000; }
     .page-btn:disabled { background-color: #111; border-color: #333; color: #555; cursor: not-allowed; }
     
-    .player-card { border: 1px solid #ffd700; border-radius: 12px; padding: 24px; margin-bottom: 24px; background-color: #05071D; box-shadow: 0 4px 10px rgba(0,0,0,0.5); cursor: pointer; transition: background-color 0.4s ease, box-shadow 0.4s ease; }
+    /* ▼ プレイヤーカードの枠と光彩を銀色に ▼ */
+    .player-card { border: 1px solid #E0E0E0; border-radius: 12px; padding: 24px; margin-bottom: 24px; background-color: #05071D; box-shadow: 0 4px 10px rgba(0,0,0,0.5); cursor: pointer; transition: background-color 0.4s ease, box-shadow 0.4s ease; }
     .player-card:hover { background-color: #161b22; }
     .header-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
-    .rank-text { color: #ffd700; font-size: 1.5rem; font-weight: bold; margin: 0 0 4px 0; }
+    .rank-text { color: #E0E0E0; font-size: 1.5rem; font-weight: bold; margin: 0 0 4px 0; }
     .name-text { color: #ffffff; font-size: 2rem; font-weight: bold; margin: 0; word-break: break-all; }
-    .score-text { color: #ffd700; font-size: 1.8rem; font-weight: bold; }
+    .score-text { color: #E0E0E0; font-size: 1.8rem; font-weight: bold; }
     .score-pt { font-size: 1rem; color: #c5c6c7; }
     .links-row { display: flex; align-items: center; gap: 12px; margin-bottom: 4px;}
     
@@ -53,14 +57,16 @@
     .startgg-icon { height: 26px; width: auto; vertical-align: middle; border-radius: 4px; transition: transform 0.2s ease, opacity 0.2s ease; opacity: 0.9; }
     .startgg-icon:hover { transform: scale(1.1); opacity: 1; }
     
+    /* ▼ ディスコードチップ ホバー時にピンクへ ▼ */
     .disc-chip { background-color: #1f2833; border: 1px solid #333; padding: 4px 8px; border-radius: 6px; font-size: 0.85rem; color: #c5c6c7; position: relative; z-index: 2; cursor: pointer; transition: all 0.2s; }
-    .disc-chip:hover { background-color: #45a29e; color: #0b0c10; border-color: #66fcf1; }
+    .disc-chip:hover { background-color: #D60B59; color: #ffffff; border-color: #FF66B2; }
     
     .history-wrapper { display: none; margin-top: 24px; }
     .player-card.expanded .history-wrapper { display: block; }
     
+    /* ▼ リザルトカードの枠を銀色に ▼ */
     .history-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
-    .history-card { border: 1px solid #ffd700; border-radius: 12px; padding: 16px; background-color: #05071D; display: flex; flex-direction: column; transition: background-color 0.4s ease; }
+    .history-card { border: 1px solid #E0E0E0; border-radius: 12px; padding: 16px; background-color: #05071D; display: flex; flex-direction: column; transition: background-color 0.4s ease; }
     .history-card:hover { background-color: #161b22; }
     .history-event { color: #ffffff; font-size: 1.3rem; font-weight: bold; margin-bottom: 4px; }
     .history-date { color: #c5c6c7; font-size: 0.85rem; margin-bottom: 20px; }
@@ -71,27 +77,32 @@
     td { padding: 12px 8px; font-size: 0.95rem; border-bottom: 1px solid #333; }
     .place-col { text-align: right; }
     
-    #loading { text-align: center; color: #ffd700; font-size: 1.1rem; margin-top: 50px; line-height: 1.6; }
+    #loading { text-align: center; color: #E0E0E0; font-size: 1.1rem; margin-top: 50px; line-height: 1.6; }
+    
+    /* ▼ モーダルの配色をピンク系に ▼ */
     #password-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 7, 29, 0.9); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; visibility: hidden; }
     #password-modal.show { opacity: 1; visibility: visible; }
-    .modal-box { background: #1f2833; padding: 30px; border-radius: 12px; border: 1px solid #45a29e; text-align: center; max-width: 350px; width: 90%; }
-    .modal-box input { width: 100%; padding: 12px; margin: 15px 0; background: #0b0c10; border: 1px solid #45a29e; color: #fff; border-radius: 8px; box-sizing: border-box; text-align: center; }
-    .modal-box button { width: 100%; padding: 12px; background: linear-gradient(135deg, #45a29e, #66fcf1); color: #0b0c10; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 10px; }
+    .modal-box { background: #1f2833; padding: 30px; border-radius: 12px; border: 1px solid #D60B59; text-align: center; max-width: 350px; width: 90%; }
+    .modal-box input { width: 100%; padding: 12px; margin: 15px 0; background: #0b0c10; border: 1px solid #D60B59; color: #fff; border-radius: 8px; box-sizing: border-box; text-align: center; }
+    .modal-box button { width: 100%; padding: 12px; background: linear-gradient(135deg, #D60B59, #FF66B2); color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 10px; }
     .modal-box button.cancel { background: #333; color: #fff; }
+    
     .back-btn { display: inline-flex; align-items: center; gap: 8px; background: #1f2833; border: 1px solid #8892b0; color: #c5c6c7; padding: 10px 20px; border-radius: 8px; font-weight: bold; font-size: 0.95rem; cursor: pointer; margin-bottom: 24px; }
+    
+    /* ▼ シード作成画面の配色 ▼ */
     .seed-input-group { background: #1f2833; padding: 25px; border-radius: 12px; border: 1px solid #333; margin-bottom: 20px; display: flex; gap: 15px; }
-    .seed-input-group input { flex: 1; padding: 12px; background: #0b0c10; border: 1px solid #45a29e; color: #fff; border-radius: 8px; }
-    .seed-input-group button { padding: 12px 24px; background: #ffd700; color: #000; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
-    .auto-update-btn { width: 100%; padding: 16px; font-size: 1.1rem; background: linear-gradient(135deg, #45a29e, #66fcf1); color: #0b0c10; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; margin-bottom: 20px; }
+    .seed-input-group input { flex: 1; padding: 12px; background: #0b0c10; border: 1px solid #D60B59; color: #fff; border-radius: 8px; }
+    .seed-input-group button { padding: 12px 24px; background: #E0E0E0; color: #000; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+    .auto-update-btn { width: 100%; padding: 16px; font-size: 1.1rem; background: linear-gradient(135deg, #D60B59, #FF66B2); color: #fff; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; margin-bottom: 20px; }
     
     .champ-badge { background: #e91e63; color: #ffffff; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; margin-left: 6px; }
     .player-link { color: #ffffff; text-decoration: none; font-weight: bold; transition: color 0.2s; }
-    .player-link:hover { color: #66fcf1; text-decoration: underline; }
+    .player-link:hover { color: #FF66B2; text-decoration: underline; }
     
     .draggable-row { cursor: grab; transition: background-color 0.2s; }
     .draggable-row:active { cursor: grabbing; }
     .draggable-row:hover { background-color: #161b22; }
-    .drag-over { border-top: 2px solid #66fcf1; background-color: #1f2833 !important; }
+    .drag-over { border-top: 2px solid #FF66B2; background-color: #1f2833 !important; }
     
     /* スマホ画面での調整 */
     @media (max-width: 600px) {
@@ -103,7 +114,7 @@
       .history-grid { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 12px; padding-bottom: 10px; -webkit-overflow-scrolling: touch; }
       .history-grid::-webkit-scrollbar { height: 4px; }
       .history-grid::-webkit-scrollbar-track { background: transparent; }
-      .history-grid::-webkit-scrollbar-thumb { background: #45a29e; border-radius: 4px; }
+      .history-grid::-webkit-scrollbar-thumb { background: #D60B59; border-radius: 4px; }
       .history-card { flex: 0 0 130px; padding: 12px; }
       .history-event { font-size: 1.1rem; margin-bottom: 2px; }
       .history-date { font-size: 0.75rem; margin-bottom: 12px; }
@@ -115,7 +126,7 @@
 
   <div id="password-modal">
     <div class="modal-box">
-      <h3 style="color:#66fcf1; margin-top:0;">管理者認証 (CTPR)</h3>
+      <h3 style="color:#FF66B2; margin-top:0;">管理者認証 (CTPR)</h3>
       <input type="password" id="authPassword" placeholder="パスワードを入力" onkeypress="if(event.key==='Enter') checkPassword()">
       <button onclick="checkPassword()">ログイン</button>
       <button class="cancel" onclick="closeModal()">キャンセル</button>
@@ -138,8 +149,8 @@
         <li>
           <span class="log-date">2026.08.24</span><br>
           ・MTPRの最新システムをCTPRにも適用<br>
-          ・ランキングをAPI通信化し爆速化<br>
-          ・リザルトカードUIの実装
+          ・テーマカラーをピンク×シルバーに変更<br>
+          ・ランキングをAPI通信化し爆速化
         </li>
       </ul>
     </div>
@@ -153,14 +164,14 @@
 
   <div id="view-seeding" class="container hidden">
     <button class="back-btn" onclick="showRanking()">↩️ ランキングに戻る</button>
-    <h1 style="color:#ffd700; text-align:center;">CTPR Seeding Tool</h1>
+    <h1 style="color:#E0E0E0; text-align:center;">CTPR Seeding Tool</h1>
     <div class="seed-input-group">
       <input type="text" id="tSlug" placeholder="大会番号 (例: 240) または test を入力" onkeypress="if(event.key==='Enter') genSeed()">
       <button onclick="genSeed()">シード作成</button>
     </div>
-    <div id="seed-loading" style="display:none; text-align:center; color:#ffd700;">処理中...</div>
+    <div id="seed-loading" style="display:none; text-align:center; color:#E0E0E0;">処理中...</div>
     <div id="resultArea" style="display:none;">
-      <h2 id="eventName" style="color:#66fcf1; text-align:center;"></h2>
+      <h2 id="eventName" style="color:#FF66B2; text-align:center;"></h2>
       <button class="auto-update-btn" onclick="executeSeeding()">🚀 start.ggへシードを自動反映する</button>
       
       <p style="color:#8892b0; font-size:0.9rem; text-align:right; margin-bottom:5px;">※行をドラッグ＆ドロップで手動並び替えできます</p>
@@ -180,13 +191,10 @@
   </div>
 
   <script>
-    // ▼▼ CTPR専用のGAS URLに変更済み ▼▼
     const GAS_URL = "https://script.google.com/macros/s/AKfycbwyGQVlQngplx7LhNBy30BtNFdaePW6-e8LofsUt_46lf9LZZ0Dw1fr5wTxXI3XduR3lA/exec";
     const STARTGG_ICON_URL = "https://i.imgur.com/fd8fScu.png"; 
 
-    // ▼ 管理者パスワード（MTPRと同じにしてあります。変更する場合はここを修正）
     const SECRET_KEY = "SumapaPartyEveryday1919";
-    
     let allData = [];
     let currentPage = 1;
     const itemsPerPage = 50;
@@ -218,8 +226,9 @@
       navigator.clipboard.writeText(text).then(() => {
         const originalHtml = el.innerHTML;
         el.innerHTML = "✅ Copied!";
-        el.style.backgroundColor = "#45a29e";
-        el.style.color = "#0b0c10";
+        // ▼ コピー成功時の色もピンク系に ▼
+        el.style.backgroundColor = "#D60B59";
+        el.style.color = "#ffffff";
         setTimeout(() => {
           el.innerHTML = originalHtml;
           el.style.backgroundColor = "";
@@ -240,7 +249,8 @@
           const indexOnPage = index % itemsPerPage;
           if (cards[indexOnPage]) {
             cards[indexOnPage].scrollIntoView({ behavior: 'smooth', block: 'center' });
-            cards[indexOnPage].style.boxShadow = '0 0 25px #66fcf1';
+            // ▼ 検索該当時の光彩をピンクに ▼
+            cards[indexOnPage].style.boxShadow = '0 0 25px #FF66B2';
             cards[indexOnPage].style.backgroundColor = '#1f2833';
             setTimeout(() => { cards[indexOnPage].style.boxShadow = ''; cards[indexOnPage].style.backgroundColor = ''; }, 2000);
           }
@@ -257,7 +267,6 @@
       pageData.forEach(player => {
         let historyHtml = '';
         player.history.forEach(h => { 
-          // ※必要に応じて h.wsp を h.ctpr などに変更する必要があるかもしれません
           if (h.wsp && h.placement) {
             historyHtml += `
               <div class="history-card">
@@ -431,7 +440,6 @@
       document.getElementById("resultArea").style.display = "none";
       
       let slug = document.getElementById("tSlug").value.trim().toLowerCase();
-      // ▼▼ CTPR専用のテスト用slugがあればここで変更します ▼▼
       if (slug === "test") {
         slug = "weekly-smash-party-test"; 
       }
