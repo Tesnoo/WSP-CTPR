@@ -24,32 +24,45 @@
     .top-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; gap: 15px; }
     .search-container { display: flex; gap: 8px; flex: 1; max-width: 400px; }
     .search-container input { flex: 1; padding: 10px 12px; background: #0b0c10; border: 1px solid #E84393; color: #fff; border-radius: 8px; font-size: 0.95rem; }
-    .search-container button { padding: 10px 16px; background: linear-gradient(135deg, #1f2833, #0b0c10); border: 1px solid #E84393; color: #FD79A8; border-radius: 8px; font-weight: bold; cursor: pointer; }
-    .admin-btn { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #1f2833, #0b0c10); border: 1px solid #E84393; color: #FD79A8; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1rem; cursor: pointer; white-space: nowrap; }
     
-    .log-container { background: #1f2833; padding: 20px; border-radius: 12px; border: 1px solid #E84393; box-sizing: border-box; margin-bottom: 24px; }
-    .log-container h3 { color:#FD79A8; margin-top:0; border-bottom:1px solid #E84393; padding-bottom:10px; font-size: 1rem; display: flex; align-items: center; gap: 8px;}
+    /* ▼ 美しい近似色グラデーション（ボタン用） ▼ */
+    .search-container button { padding: 10px 16px; background: linear-gradient(to right, #E84393, #FF8EB3); border: none; color: #ffffff; border-radius: 8px; font-weight: bold; cursor: pointer; }
+    .admin-btn { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(to right, #E84393, #FF8EB3); border: none; color: #ffffff; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1rem; cursor: pointer; white-space: nowrap; }
+    
+    /* ▼ アコーディオン化されたアップデート情報 ▼ */
+    .log-details { background: #1f2833; border-radius: 12px; border: 1px solid transparent; background-clip: padding-box; background: linear-gradient(#1f2833, #1f2833) padding-box, linear-gradient(to right, #E84393, #FF8EB3) border-box; box-sizing: border-box; margin-bottom: 24px; }
+    .log-summary { cursor: pointer; padding: 15px 20px; font-weight: bold; color: #FF8EB3; display: flex; align-items: center; justify-content: space-between; font-size: 1rem; list-style: none; outline: none; }
+    .log-summary::-webkit-details-marker { display: none; } /* デフォルトの矢印を消す */
+    .log-summary::after { content: "▼"; font-size: 0.8rem; transition: transform 0.3s; color: #FF8EB3; }
+    details[open] .log-summary::after { transform: rotate(180deg); }
+    .log-content { padding: 0 20px 20px 20px; border-top: 1px solid #333; margin-top: 0; padding-top: 15px; }
+    
     .log-list { list-style: none; padding: 0; margin: 0; }
     .log-list li { margin-bottom: 16px; font-size: 0.9rem; line-height: 1.6; color: #c5c6c7; }
     .log-list li:last-child { margin-bottom: 0; }
-    .log-date { display: inline-block; background: #0b0c10; color: #FD79A8; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-bottom: 6px; border: 1px solid #333; }
+    .log-date { display: inline-block; background: #0b0c10; color: #FF8EB3; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-bottom: 6px; border: 1px solid #333; }
     
     .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
-    
-    /* ▼ ページボタンもピンク系に統一 ▼ */
-    .page-btn { background-color: #1f2833; border: 1px solid #E84393; color: #FD79A8; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.95rem; }
-    .page-btn.active { background-color: #E84393; color: #000; border-color: #E84393; }
+    .page-btn { background-color: #1f2833; border: 1px solid #E84393; color: #FF8EB3; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.95rem; }
+    /* ▼ アクティブなページボタンもグラデーション ▼ */
+    .page-btn.active { background: linear-gradient(to right, #E84393, #FF8EB3); color: #ffffff; border: none; }
     .page-btn:disabled { background-color: #111; border-color: #333; color: #555; cursor: not-allowed; }
     
-    /* ▼ カードの枠は単色のディープピンク（#E84393） ▼ */
-    .player-card { border: 1px solid #E84393; border-radius: 12px; padding: 24px; margin-bottom: 24px; background-color: #05071D; box-shadow: 0 4px 10px rgba(0,0,0,0.5); cursor: pointer; transition: background-color 0.4s ease, box-shadow 0.4s ease; }
-    .player-card:hover { background-color: #161b22; }
+    /* ▼ プレイヤーカードの枠もピンクグラデーション ▼ */
+    .player-card { 
+      border: 1px solid transparent; 
+      border-radius: 12px; padding: 24px; margin-bottom: 24px; 
+      background: linear-gradient(#05071D, #05071D) padding-box, linear-gradient(to right, #E84393, #FF8EB3) border-box; 
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5); cursor: pointer; 
+    }
+    .player-card:hover { 
+      background: linear-gradient(#161b22, #161b22) padding-box, linear-gradient(to right, #E84393, #FF8EB3) border-box; 
+    }
     .header-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
     
-    /* ▼ 順位やスコアの文字色は発色の良いパステルピンク（#FD79A8） ▼ */
-    .rank-text { color: #FD79A8; font-size: 1.5rem; font-weight: bold; margin: 0 0 4px 0; }
+    .rank-text { color: #FF8EB3; font-size: 1.5rem; font-weight: bold; margin: 0 0 4px 0; }
     .name-text { color: #ffffff; font-size: 2rem; font-weight: bold; margin: 0; word-break: break-all; }
-    .score-text { color: #FD79A8; font-size: 1.8rem; font-weight: bold; }
+    .score-text { color: #FF8EB3; font-size: 1.8rem; font-weight: bold; }
     .score-pt { font-size: 1rem; color: #c5c6c7; }
     .links-row { display: flex; align-items: center; gap: 12px; margin-bottom: 4px;}
     
@@ -58,48 +71,58 @@
     .startgg-icon:hover { transform: scale(1.1); opacity: 1; }
     
     .disc-chip { background-color: #1f2833; border: 1px solid #333; padding: 4px 8px; border-radius: 6px; font-size: 0.85rem; color: #c5c6c7; position: relative; z-index: 2; cursor: pointer; transition: all 0.2s; }
-    .disc-chip:hover { background-color: #E84393; color: #ffffff; border-color: #FD79A8; }
+    .disc-chip:hover { background-color: #E84393; color: #ffffff; border-color: #FF8EB3; }
     
     .history-wrapper { display: none; margin-top: 24px; }
     .player-card.expanded .history-wrapper { display: block; }
     
     .history-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
     
-    /* ▼ リザルトカードの枠もピンクに統一 ▼ */
-    .history-card { border: 1px solid #E84393; border-radius: 12px; padding: 16px; background-color: #05071D; display: flex; flex-direction: column; transition: background-color 0.4s ease; }
-    .history-card:hover { background-color: #161b22; }
+    /* ▼ リザルトカードの枠もピンクグラデーション ▼ */
+    .history-card { 
+      border: 1px solid transparent; 
+      border-radius: 12px; padding: 16px; 
+      background: linear-gradient(#05071D, #05071D) padding-box, linear-gradient(to right, #E84393, #FF8EB3) border-box; 
+      display: flex; flex-direction: column; transition: background-color 0.4s ease; 
+    }
+    .history-card:hover { 
+      background: linear-gradient(#161b22, #161b22) padding-box, linear-gradient(to right, #E84393, #FF8EB3) border-box; 
+    }
     .history-event { color: #ffffff; font-size: 1.3rem; font-weight: bold; margin-bottom: 4px; }
     .history-date { color: #c5c6c7; font-size: 0.85rem; margin-bottom: 20px; }
-    .history-place { color: #FD79A8; font-size: 2rem; font-weight: bold; text-align: center; margin-top: auto; }
+    .history-place { color: #FF8EB3; font-size: 2rem; font-weight: bold; text-align: center; margin-top: auto; }
     
     table { width: 100%; border-collapse: collapse; border-top: 1px solid #333; }
     th { text-align: left; color: #8892b0; font-size: 0.9rem; padding: 12px 8px 8px 8px; border-bottom: 1px solid #333; }
     td { padding: 12px 8px; font-size: 0.95rem; border-bottom: 1px solid #333; }
     .place-col { text-align: right; }
     
-    #loading { text-align: center; color: #FD79A8; font-size: 1.1rem; margin-top: 50px; line-height: 1.6; }
+    #loading { text-align: center; color: #FF8EB3; font-size: 1.1rem; margin-top: 50px; line-height: 1.6; }
     
     #password-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 7, 29, 0.9); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; visibility: hidden; }
     #password-modal.show { opacity: 1; visibility: visible; }
-    .modal-box { background: #1f2833; padding: 30px; border-radius: 12px; border: 1px solid #E84393; text-align: center; max-width: 350px; width: 90%; }
+    .modal-box { background: #1f2833; padding: 30px; border-radius: 12px; border: 1px solid transparent; background: linear-gradient(#1f2833, #1f2833) padding-box, linear-gradient(to right, #E84393, #FF8EB3) border-box; text-align: center; max-width: 350px; width: 90%; }
     .modal-box input { width: 100%; padding: 12px; margin: 15px 0; background: #0b0c10; border: 1px solid #E84393; color: #fff; border-radius: 8px; box-sizing: border-box; text-align: center; }
-    .modal-box button { width: 100%; padding: 12px; background: linear-gradient(135deg, #E84393, #FD79A8); color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 10px; }
+    /* ▼ ログインボタン ▼ */
+    .modal-box button { width: 100%; padding: 12px; background: linear-gradient(to right, #E84393, #FF8EB3); color: #ffffff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 10px; }
     .modal-box button.cancel { background: #333; color: #fff; }
     
     .back-btn { display: inline-flex; align-items: center; gap: 8px; background: #1f2833; border: 1px solid #8892b0; color: #c5c6c7; padding: 10px 20px; border-radius: 8px; font-weight: bold; font-size: 0.95rem; cursor: pointer; margin-bottom: 24px; }
     .seed-input-group { background: #1f2833; padding: 25px; border-radius: 12px; border: 1px solid #333; margin-bottom: 20px; display: flex; gap: 15px; }
     .seed-input-group input { flex: 1; padding: 12px; background: #0b0c10; border: 1px solid #E84393; color: #fff; border-radius: 8px; }
-    .seed-input-group button { background: #E84393; color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; padding: 12px 24px; }
-    .auto-update-btn { width: 100%; padding: 16px; font-size: 1.1rem; background: linear-gradient(135deg, #E84393, #FD79A8); color: #fff; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; margin-bottom: 20px; }
+    /* ▼ シード作成ボタン ▼ */
+    .seed-input-group button { background: linear-gradient(to right, #E84393, #FF8EB3); color: #ffffff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; padding: 12px 24px; }
+    /* ▼ start.gg自動更新ボタン ▼ */
+    .auto-update-btn { width: 100%; padding: 16px; font-size: 1.1rem; background: linear-gradient(to right, #E84393, #FF8EB3); color: #ffffff; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; margin-bottom: 20px; }
     
-    .champ-badge { background: #e91e63; color: #ffffff; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; margin-left: 6px; }
+    .champ-badge { background: linear-gradient(to right, #E84393, #FF8EB3); color: #ffffff; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; margin-left: 6px; border: none; }
     .player-link { color: #ffffff; text-decoration: none; font-weight: bold; transition: color 0.2s; }
-    .player-link:hover { color: #FD79A8; text-decoration: underline; }
+    .player-link:hover { color: #FF8EB3; text-decoration: underline; }
     
     .draggable-row { cursor: grab; transition: background-color 0.2s; }
     .draggable-row:active { cursor: grabbing; }
     .draggable-row:hover { background-color: #161b22; }
-    .drag-over { border-top: 2px solid #FD79A8; background-color: #1f2833 !important; }
+    .drag-over { border-top: 2px solid #FF8EB3; background-color: #1f2833 !important; }
     
     @media (max-width: 600px) {
       .top-controls { flex-direction: column; align-items: stretch; margin-bottom: 16px; } 
@@ -122,7 +145,7 @@
 
   <div id="password-modal">
     <div class="modal-box">
-      <h3 style="color:#FD79A8; margin-top:0;">管理者認証</h3>
+      <h3 style="color:#FF8EB3; margin-top:0;">管理者認証</h3>
       <input type="password" id="authPassword" placeholder="パスワードを入力" onkeypress="if(event.key==='Enter') checkPassword()">
       <button onclick="checkPassword()">ログイン</button>
       <button class="cancel" onclick="closeModal()">キャンセル</button>
@@ -139,17 +162,34 @@
       <button class="admin-btn" onclick="openModal()">⚙️ シード設定</button>
     </div>
     
-    <div class="log-container">
-      <h3>🛠 アップデート情報</h3>
-      <ul class="log-list">
-        <li>
-          <span class="log-date">2026.09.09</span><br>
-          ・MTPRの最新システムをCTPRにも適用<br>
-          ・テーマカラーをピンク1色に統一・洗練化<br>
-          ・ランキングをAPI通信化し爆速化
-        </li>
-      </ul>
-    </div>
+    <!-- ▼ アコーディオン化されたアップデート情報 ▼ -->
+    <details class="log-details" open>
+      <summary class="log-summary">
+        <span>🛠 アップデート情報</span>
+      </summary>
+      <div class="log-content">
+        <ul class="log-list">
+          <li>
+            <span class="log-date">2026.09.09</span><br>
+            ・ボタンとカード枠に近似色の美しいグラデーションを適用<br>
+            ・アップデート情報をアコーディオン（開閉式）に刷新<br>
+            ・MTPRの最新システムをCTPRにも適用<br>
+            ・ランキングをAPI通信化し爆速化
+          </li>
+          <li>
+            <span class="log-date">2026.08.20</span><br>
+            ・ランキングシステムの運用再開<br>
+            ・シード自動反映ツールのテスト開始<br>
+            ・UI/UXの全体的な見直しと改善
+          </li>
+          <li>
+            <span class="log-date">2026.07.15</span><br>
+            ・CTPRシステム（β版）のローンチ<br>
+            ・start.ggとの初期連携テスト
+          </li>
+        </ul>
+      </div>
+    </details>
     
     <div class="pagination" id="pagination-top"></div>
     <div id="loading">ランキングデータを読み込み中...</div>
@@ -160,14 +200,14 @@
 
   <div id="view-seeding" class="container hidden">
     <button class="back-btn" onclick="showRanking()">↩️ ランキングに戻る</button>
-    <h1 style="color:#FD79A8; text-align:center;">CTPR Seeding Tool</h1>
+    <h1 style="color:#FF8EB3; text-align:center;">CTPR Seeding Tool</h1>
     <div class="seed-input-group">
       <input type="text" id="tSlug" placeholder="大会番号 (例: 240) または test を入力" onkeypress="if(event.key==='Enter') genSeed()">
       <button onclick="genSeed()">シード作成</button>
     </div>
-    <div id="seed-loading" style="display:none; text-align:center; color:#FD79A8;">処理中...</div>
+    <div id="seed-loading" style="display:none; text-align:center; color:#FF8EB3;">処理中...</div>
     <div id="resultArea" style="display:none;">
-      <h2 id="eventName" style="color:#FD79A8; text-align:center;"></h2>
+      <h2 id="eventName" style="color:#FF8EB3; text-align:center;"></h2>
       <button class="auto-update-btn" onclick="executeSeeding()">🚀 start.ggへシードを自動反映する</button>
       
       <p style="color:#8892b0; font-size:0.9rem; text-align:right; margin-bottom:5px;">※行をドラッグ＆ドロップで手動並び替えできます</p>
@@ -222,11 +262,11 @@
       navigator.clipboard.writeText(text).then(() => {
         const originalHtml = el.innerHTML;
         el.innerHTML = "✅ Copied!";
-        el.style.backgroundColor = "#E84393";
+        el.style.background = "linear-gradient(to right, #E84393, #FF8EB3)";
         el.style.color = "#ffffff";
         setTimeout(() => {
           el.innerHTML = originalHtml;
-          el.style.backgroundColor = "";
+          el.style.background = "";
           el.style.color = "";
         }, 1500);
       });
@@ -244,9 +284,12 @@
           const indexOnPage = index % itemsPerPage;
           if (cards[indexOnPage]) {
             cards[indexOnPage].scrollIntoView({ behavior: 'smooth', block: 'center' });
-            cards[indexOnPage].style.boxShadow = '0 0 25px #FD79A8';
-            cards[indexOnPage].style.backgroundColor = '#1f2833';
-            setTimeout(() => { cards[indexOnPage].style.boxShadow = ''; cards[indexOnPage].style.backgroundColor = ''; }, 2000);
+            cards[indexOnPage].style.boxShadow = '0 0 25px #FF8EB3';
+            cards[indexOnPage].style.background = 'linear-gradient(#1f2833, #1f2833) padding-box, linear-gradient(to right, #E84393, #FF8EB3) border-box';
+            setTimeout(() => { 
+              cards[indexOnPage].style.boxShadow = ''; 
+              cards[indexOnPage].style.background = ''; 
+            }, 2000);
           }
         }, 100);
       } else { alert("該当するプレイヤーが見つかりませんでした。"); }
@@ -280,7 +323,6 @@
         card.className = 'player-card';
         card.setAttribute('onclick', 'toggleCard(this, event)');
         
-        // JS内からシルバーグラデーションのクラス指定を完全に削除し、スッキリさせました
         card.innerHTML = `
           <div class="rank-text">${getOrdinal(player.rank)}</div>
           <div class="header-row"><h2 class="name-text">${player.name}</h2><div class="score-text">${player.score.toLocaleString()}<span class="score-pt">pt</span></div></div>
