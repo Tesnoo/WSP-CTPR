@@ -2,38 +2,474 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WSP-Casual Tournament Power Ranking</title>
   
+  <!-- ▼▼ CTPR用のOGP・メタ設定 ▼▼ -->
   <meta property="og:title" content="WSP-Casual Tournament Power Ranking">
   <meta property="og:description" content="スマパカジュアルトーナメントのランキング＆シード作成システム">
   <meta property="og:url" content="https://tesnoo.github.io/WSP-CTPR/">
   <meta property="og:image" content="https://tesnoo.github.io/WSP-MTPR/sumapa_newlogo.png">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="WSP-CTPR">
-  
   <meta name="theme-color" content="#d60b59">
-
   <meta name="twitter:card" content="summary">
   <link rel="icon" href="https://tesnoo.github.io/WSP-MTPR/sumapa_newlogo.png">
   
   <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden; /* 全体のスクロールを固定 */
-      background-color: #020414; /* GASアプリの背景色に合わせる */
-    }
-    iframe {
-      width: 100vw;
-      /* 上に30pxズラして帯を隠し、高さを補う魔法のコード */
-      height: calc(100vh + 30px);
-      margin-top: -30px;
-      border: none;
+    body { background-color: #05071D; color: #c5c6c7; font-family: 'Helvetica Neue', Arial, sans-serif; margin: 0; padding: 40px 20px; }
+    .hidden { display: none !important; }
+    
+    .container { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; }
+    
+    .top-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; gap: 15px; }
+    .search-container { display: flex; gap: 8px; flex: 1; max-width: 400px; }
+    .search-container input { flex: 1; padding: 10px 12px; background: #0b0c10; border: 1px solid #45a29e; color: #fff; border-radius: 8px; font-size: 0.95rem; }
+    .search-container button { padding: 10px 16px; background: linear-gradient(135deg, #1f2833, #0b0c10); border: 1px solid #45a29e; color: #66fcf1; border-radius: 8px; font-weight: bold; cursor: pointer; }
+    .admin-btn { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #1f2833, #0b0c10); border: 1px solid #45a29e; color: #66fcf1; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1rem; cursor: pointer; white-space: nowrap; }
+    
+    .log-container { background: #1f2833; padding: 20px; border-radius: 12px; border: 1px solid #45a29e; box-sizing: border-box; margin-bottom: 24px; }
+    .log-container h3 { color:#66fcf1; margin-top:0; border-bottom:1px solid #45a29e; padding-bottom:10px; font-size: 1rem; display: flex; align-items: center; gap: 8px;}
+    .log-list { list-style: none; padding: 0; margin: 0; }
+    .log-list li { margin-bottom: 16px; font-size: 0.9rem; line-height: 1.6; color: #c5c6c7; }
+    .log-list li:last-child { margin-bottom: 0; }
+    .log-date { display: inline-block; background: #0b0c10; color: #ffd700; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-bottom: 6px; border: 1px solid #333; }
+    
+    .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+    .page-btn { background-color: #1f2833; border: 1px solid #ffd700; color: #ffd700; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.95rem;}
+    .page-btn.active { background-color: #ffd700; color: #000; }
+    .page-btn:disabled { background-color: #111; border-color: #333; color: #555; cursor: not-allowed; }
+    
+    .player-card { border: 1px solid #ffd700; border-radius: 12px; padding: 24px; margin-bottom: 24px; background-color: #05071D; box-shadow: 0 4px 10px rgba(0,0,0,0.5); cursor: pointer; transition: background-color 0.4s ease, box-shadow 0.4s ease; }
+    .player-card:hover { background-color: #161b22; }
+    .header-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+    .rank-text { color: #ffd700; font-size: 1.5rem; font-weight: bold; margin: 0 0 4px 0; }
+    .name-text { color: #ffffff; font-size: 2rem; font-weight: bold; margin: 0; word-break: break-all; }
+    .score-text { color: #ffd700; font-size: 1.8rem; font-weight: bold; }
+    .score-pt { font-size: 1rem; color: #c5c6c7; }
+    .links-row { display: flex; align-items: center; gap: 12px; margin-bottom: 4px;}
+    
+    .startgg-link { position: relative; z-index: 2; display: inline-flex; align-items: center; }
+    .startgg-icon { height: 26px; width: auto; vertical-align: middle; border-radius: 4px; transition: transform 0.2s ease, opacity 0.2s ease; opacity: 0.9; }
+    .startgg-icon:hover { transform: scale(1.1); opacity: 1; }
+    
+    .disc-chip { background-color: #1f2833; border: 1px solid #333; padding: 4px 8px; border-radius: 6px; font-size: 0.85rem; color: #c5c6c7; position: relative; z-index: 2; cursor: pointer; transition: all 0.2s; }
+    .disc-chip:hover { background-color: #45a29e; color: #0b0c10; border-color: #66fcf1; }
+    
+    .history-wrapper { display: none; margin-top: 24px; }
+    .player-card.expanded .history-wrapper { display: block; }
+    
+    .history-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
+    .history-card { border: 1px solid #ffd700; border-radius: 12px; padding: 16px; background-color: #05071D; display: flex; flex-direction: column; transition: background-color 0.4s ease; }
+    .history-card:hover { background-color: #161b22; }
+    .history-event { color: #ffffff; font-size: 1.3rem; font-weight: bold; margin-bottom: 4px; }
+    .history-date { color: #c5c6c7; font-size: 0.85rem; margin-bottom: 20px; }
+    .history-place { color: #ffffff; font-size: 2rem; font-weight: bold; text-align: center; margin-top: auto; }
+    
+    table { width: 100%; border-collapse: collapse; border-top: 1px solid #333; }
+    th { text-align: left; color: #8892b0; font-size: 0.9rem; padding: 12px 8px 8px 8px; border-bottom: 1px solid #333; }
+    td { padding: 12px 8px; font-size: 0.95rem; border-bottom: 1px solid #333; }
+    .place-col { text-align: right; }
+    
+    #loading { text-align: center; color: #ffd700; font-size: 1.1rem; margin-top: 50px; line-height: 1.6; }
+    #password-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 7, 29, 0.9); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; visibility: hidden; }
+    #password-modal.show { opacity: 1; visibility: visible; }
+    .modal-box { background: #1f2833; padding: 30px; border-radius: 12px; border: 1px solid #45a29e; text-align: center; max-width: 350px; width: 90%; }
+    .modal-box input { width: 100%; padding: 12px; margin: 15px 0; background: #0b0c10; border: 1px solid #45a29e; color: #fff; border-radius: 8px; box-sizing: border-box; text-align: center; }
+    .modal-box button { width: 100%; padding: 12px; background: linear-gradient(135deg, #45a29e, #66fcf1); color: #0b0c10; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 10px; }
+    .modal-box button.cancel { background: #333; color: #fff; }
+    .back-btn { display: inline-flex; align-items: center; gap: 8px; background: #1f2833; border: 1px solid #8892b0; color: #c5c6c7; padding: 10px 20px; border-radius: 8px; font-weight: bold; font-size: 0.95rem; cursor: pointer; margin-bottom: 24px; }
+    .seed-input-group { background: #1f2833; padding: 25px; border-radius: 12px; border: 1px solid #333; margin-bottom: 20px; display: flex; gap: 15px; }
+    .seed-input-group input { flex: 1; padding: 12px; background: #0b0c10; border: 1px solid #45a29e; color: #fff; border-radius: 8px; }
+    .seed-input-group button { padding: 12px 24px; background: #ffd700; color: #000; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+    .auto-update-btn { width: 100%; padding: 16px; font-size: 1.1rem; background: linear-gradient(135deg, #45a29e, #66fcf1); color: #0b0c10; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; margin-bottom: 20px; }
+    
+    .champ-badge { background: #e91e63; color: #ffffff; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; margin-left: 6px; }
+    .player-link { color: #ffffff; text-decoration: none; font-weight: bold; transition: color 0.2s; }
+    .player-link:hover { color: #66fcf1; text-decoration: underline; }
+    
+    .draggable-row { cursor: grab; transition: background-color 0.2s; }
+    .draggable-row:active { cursor: grabbing; }
+    .draggable-row:hover { background-color: #161b22; }
+    .drag-over { border-top: 2px solid #66fcf1; background-color: #1f2833 !important; }
+    
+    /* スマホ画面での調整 */
+    @media (max-width: 600px) {
+      .top-controls { flex-direction: column; align-items: stretch; margin-bottom: 16px; } 
+      .search-container { max-width: 100%; } 
+      .pagination { gap: 5px; }
+      .page-btn { padding: 6px 8px; font-size: 0.8rem; }
+      
+      .history-grid { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 12px; padding-bottom: 10px; -webkit-overflow-scrolling: touch; }
+      .history-grid::-webkit-scrollbar { height: 4px; }
+      .history-grid::-webkit-scrollbar-track { background: transparent; }
+      .history-grid::-webkit-scrollbar-thumb { background: #45a29e; border-radius: 4px; }
+      .history-card { flex: 0 0 130px; padding: 12px; }
+      .history-event { font-size: 1.1rem; margin-bottom: 2px; }
+      .history-date { font-size: 0.75rem; margin-bottom: 12px; }
+      .history-place { font-size: 1.5rem; }
     }
   </style>
 </head>
 <body>
-  <iframe src="https://script.google.com/macros/s/AKfycbwyGQVlQngplx7LhNBy30BtNFdaePW6-e8LofsUt_46lf9LZZ0Dw1fr5wTxXI3XduR3lA/exec"></iframe>
+
+  <div id="password-modal">
+    <div class="modal-box">
+      <h3 style="color:#66fcf1; margin-top:0;">管理者認証 (CTPR)</h3>
+      <input type="password" id="authPassword" placeholder="パスワードを入力" onkeypress="if(event.key==='Enter') checkPassword()">
+      <button onclick="checkPassword()">ログイン</button>
+      <button class="cancel" onclick="closeModal()">キャンセル</button>
+    </div>
+  </div>
+
+  <div id="view-ranking" class="container">
+    
+    <div class="top-controls">
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="プレイヤー名で検索..." onkeypress="if(event.key==='Enter') searchPlayer()">
+        <button onclick="searchPlayer()">🔍</button>
+      </div>
+      <button class="admin-btn" onclick="openModal()">⚙️ シード設定</button>
+    </div>
+    
+    <div class="log-container">
+      <h3>🛠 アップデート情報 (CTPR)</h3>
+      <ul class="log-list">
+        <li>
+          <span class="log-date">2026.08.24</span><br>
+          ・MTPRの最新システムをCTPRにも適用<br>
+          ・ランキングをAPI通信化し爆速化<br>
+          ・リザルトカードUIの実装
+        </li>
+      </ul>
+    </div>
+    
+    <div class="pagination" id="pagination-top"></div>
+    <div id="loading">ランキングデータを読み込み中...</div>
+    <div id="ranking-list"></div>
+    <div class="pagination" id="pagination-bottom" style="margin-top: 24px;"></div>
+    
+  </div>
+
+  <div id="view-seeding" class="container hidden">
+    <button class="back-btn" onclick="showRanking()">↩️ ランキングに戻る</button>
+    <h1 style="color:#ffd700; text-align:center;">CTPR Seeding Tool</h1>
+    <div class="seed-input-group">
+      <input type="text" id="tSlug" placeholder="大会番号 (例: 240) または test を入力" onkeypress="if(event.key==='Enter') genSeed()">
+      <button onclick="genSeed()">シード作成</button>
+    </div>
+    <div id="seed-loading" style="display:none; text-align:center; color:#ffd700;">処理中...</div>
+    <div id="resultArea" style="display:none;">
+      <h2 id="eventName" style="color:#66fcf1; text-align:center;"></h2>
+      <button class="auto-update-btn" onclick="executeSeeding()">🚀 start.ggへシードを自動反映する</button>
+      
+      <p style="color:#8892b0; font-size:0.9rem; text-align:right; margin-bottom:5px;">※行をドラッグ＆ドロップで手動並び替えできます</p>
+      
+      <table>
+        <thead>
+          <tr>
+            <th width="10%" style="text-align:center;">Seed</th>
+            <th width="30%">Player</th>
+            <th width="45%">Result <span style="font-size:0.75rem; font-weight:normal;">(直近3大会)</span></th>
+            <th width="15%" style="text-align:right;">Score</th>
+          </tr>
+        </thead>
+        <tbody id="seedListBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    // ▼▼ CTPR専用のGAS URLに変更済み ▼▼
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbwyGQVlQngplx7LhNBy30BtNFdaePW6-e8LofsUt_46lf9LZZ0Dw1fr5wTxXI3XduR3lA/exec";
+    const STARTGG_ICON_URL = "https://i.imgur.com/fd8fScu.png"; 
+
+    // ▼ 管理者パスワード（MTPRと同じにしてあります。変更する場合はここを修正）
+    const SECRET_KEY = "SumapaPartyEveryday1919";
+    
+    let allData = [];
+    let currentPage = 1;
+    const itemsPerPage = 50;
+
+    function openModal() {
+      const expiry = localStorage.getItem('ctpr_auth_expiry');
+      if (expiry && Date.now() < parseInt(expiry)) {
+        document.getElementById('view-ranking').classList.add('hidden');
+        document.getElementById('view-seeding').classList.remove('hidden');
+      } else {
+        document.getElementById('authPassword').value = '';
+        document.getElementById('password-modal').classList.add('show');
+        document.getElementById('authPassword').focus();
+      }
+    }
+    function closeModal() { document.getElementById('password-modal').classList.remove('show'); }
+    function checkPassword() {
+      if (document.getElementById('authPassword').value === SECRET_KEY) {
+        localStorage.setItem('ctpr_auth_expiry', Date.now() + 10 * 60 * 1000); 
+        closeModal(); document.getElementById('view-ranking').classList.add('hidden'); document.getElementById('view-seeding').classList.remove('hidden');
+      } else { alert("パスワードが違います"); }
+    }
+    function showRanking() { document.getElementById('view-seeding').classList.add('hidden'); document.getElementById('view-ranking').classList.remove('hidden'); }
+    function getOrdinal(n) { const s = ["th", "st", "nd", "rd"], v = n % 100; return n + (s[(v - 20) % 10] || s[v] || s[0]); }
+    function toggleCard(element, event) { if (event.target.tagName.toLowerCase() === 'a' || event.target.closest('.disc-chip') || event.target.tagName.toLowerCase() === 'img') return; element.classList.toggle('expanded'); }
+
+    function copyDisc(event, text, el) {
+      event.stopPropagation();
+      navigator.clipboard.writeText(text).then(() => {
+        const originalHtml = el.innerHTML;
+        el.innerHTML = "✅ Copied!";
+        el.style.backgroundColor = "#45a29e";
+        el.style.color = "#0b0c10";
+        setTimeout(() => {
+          el.innerHTML = originalHtml;
+          el.style.backgroundColor = "";
+          el.style.color = "";
+        }, 1500);
+      });
+    }
+
+    function searchPlayer() {
+      const query = document.getElementById('searchInput').value.trim().toLowerCase();
+      if (!query) return;
+      const index = allData.findIndex(p => p.name.toLowerCase().includes(query) || (p.disc && p.disc.toLowerCase().includes(query)));
+      if (index !== -1) {
+        const targetPage = Math.floor(index / itemsPerPage) + 1;
+        if (currentPage !== targetPage) changePage(targetPage);
+        setTimeout(() => {
+          const cards = document.querySelectorAll('.player-card');
+          const indexOnPage = index % itemsPerPage;
+          if (cards[indexOnPage]) {
+            cards[indexOnPage].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            cards[indexOnPage].style.boxShadow = '0 0 25px #66fcf1';
+            cards[indexOnPage].style.backgroundColor = '#1f2833';
+            setTimeout(() => { cards[indexOnPage].style.boxShadow = ''; cards[indexOnPage].style.backgroundColor = ''; }, 2000);
+          }
+        }, 100);
+      } else { alert("該当するプレイヤーが見つかりませんでした。"); }
+    }
+
+    function renderPage(page) {
+      const container = document.getElementById('ranking-list');
+      container.innerHTML = '';
+      const startIndex = (page - 1) * itemsPerPage;
+      const pageData = allData.slice(startIndex, startIndex + itemsPerPage);
+
+      pageData.forEach(player => {
+        let historyHtml = '';
+        player.history.forEach(h => { 
+          // ※必要に応じて h.wsp を h.ctpr などに変更する必要があるかもしれません
+          if (h.wsp && h.placement) {
+            historyHtml += `
+              <div class="history-card">
+                <div class="history-event">#${h.wsp}</div>
+                <div class="history-date">${h.dateStr}</div>
+                <div class="history-place">${getOrdinal(h.placement)}/${h.entrants}</div>
+              </div>
+            `;
+          } 
+        });
+        
+        let startGgHtml = `<a href="https://start.gg/user/${player.disc.split('-')[0]}" target="_blank" class="startgg-link" title="start.gg Profile">
+                            <img src="${STARTGG_ICON_URL}" alt="start.gg" class="startgg-icon" onerror="this.outerHTML='start.gg'">
+                           </a>`;
+
+        const card = document.createElement('div');
+        card.className = 'player-card';
+        card.setAttribute('onclick', 'toggleCard(this, event)');
+        
+        card.innerHTML = `
+          <div class="rank-text">${getOrdinal(player.rank)}</div>
+          <div class="header-row"><h2 class="name-text">${player.name}</h2><div class="score-text">${player.score.toLocaleString()}<span class="score-pt">pt</span></div></div>
+          <div class="links-row">
+            ${startGgHtml}
+            <div class="disc-chip" onclick="copyDisc(event, '${player.disc}', this)" title="クリックしてコピー">📄 ${player.disc}</div>
+          </div>
+          <div class="history-wrapper">
+            <div class="history-grid">${historyHtml}</div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+      renderPaginationControls();
+    }
+
+    function renderPaginationControls() {
+      const totalPages = Math.ceil(allData.length / itemsPerPage);
+      let html = `<button class="page-btn" onclick="changePageWithScroll(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>&lt; Prev</button>`;
+      for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+          html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePageWithScroll(${i})">${i}</button>`;
+        } else if (i === currentPage - 3 || i === currentPage + 3) {
+          html += `<span style="color:#ffd700; padding:0 4px;">...</span>`;
+        }
+      }
+      html += `<button class="page-btn" onclick="changePageWithScroll(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next &gt;</button>`;
+      document.getElementById('pagination-top').innerHTML = html;
+      document.getElementById('pagination-bottom').innerHTML = html;
+    }
+
+    function changePage(newPage) { if (newPage >= 1 && newPage <= Math.ceil(allData.length / itemsPerPage)) { currentPage = newPage; renderPage(currentPage); } }
+    function changePageWithScroll(newPage) { changePage(newPage); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+    fetch(GAS_URL + "?action=getRanking")
+      .then(res => res.json())
+      .then(data => {
+        if(data.error) throw new Error(data.error);
+        document.getElementById('loading').style.display = 'none';
+        allData = data;
+        renderPage(1);
+      })
+      .catch(err => {
+        document.getElementById('loading').innerHTML = `<b style="color:#ff4b4b;">⚠️ データの取得に失敗しました</b><br>詳細: ${err.message}`;
+      });
+
+    let gId = null, gList = null;
+    let dragSrcEl = null;
+
+    function handleDragStart(e) {
+      dragSrcEl = this;
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', this.dataset.index);
+      setTimeout(() => { this.style.opacity = '0.5'; }, 0); 
+    }
+    function handleDragOver(e) { if (e.preventDefault) e.preventDefault(); e.dataTransfer.dropEffect = 'move'; return false; }
+    function handleDragEnter(e) { this.classList.add('drag-over'); }
+    function handleDragLeave(e) { this.classList.remove('drag-over'); }
+    function handleDrop(e) {
+      if (e.stopPropagation) e.stopPropagation();
+      this.classList.remove('drag-over');
+      dragSrcEl.style.opacity = '1';
+
+      const fromIndex = parseInt(e.dataTransfer.getData('text/plain'));
+      const toIndex = parseInt(this.dataset.index);
+
+      if (fromIndex !== toIndex && !isNaN(fromIndex) && !isNaN(toIndex)) {
+        const movedItem = gList.splice(fromIndex, 1)[0];
+        gList.splice(toIndex, 0, movedItem);
+        saveSeedOrder();
+        renderSeedList();
+      }
+      return false;
+    }
+    function handleDragEnd(e) {
+      this.style.opacity = '1';
+      document.querySelectorAll('#seedListBody tr').forEach(row => { row.classList.remove('drag-over'); });
+    }
+
+    function saveSeedOrder() {
+      if (!gId) return;
+      const order = gList.map(p => p.entrantId);
+      localStorage.setItem('ctpr_seed_order_' + gId, JSON.stringify(order));
+    }
+
+    function applySavedSeedOrder() {
+      if (!gId) return;
+      const saved = localStorage.getItem('ctpr_seed_order_' + gId);
+      if (saved) {
+        try {
+          const order = JSON.parse(saved);
+          gList.sort((a, b) => {
+            let indexA = order.indexOf(a.entrantId);
+            let indexB = order.indexOf(b.entrantId);
+            if (indexA === -1) indexA = 9999;
+            if (indexB === -1) indexB = 9999;
+            return indexA - indexB;
+          });
+        } catch(e) {}
+      }
+    }
+
+    function renderSeedList() {
+      const tb = document.getElementById("seedListBody");
+      tb.innerHTML = "";
+      gList.forEach((p, i) => {
+        let badge = p.lastPlacement === 1 ? `<span class="champ-badge">👑 #${p.lastWspNum}優勝</span>` : "";
+        
+        let playerNameHtml = p.rawTag;
+        if (p.disc && p.disc !== "なし") {
+          const userSlug = p.disc.split('-')[0];
+          playerNameHtml = `<a href="https://www.start.gg/user/${userSlug}" target="_blank" class="player-link" draggable="false">${p.rawTag}</a>`;
+        }
+
+        let historyText = "-";
+        if (p.disc && p.disc !== "なし") {
+          const prPlayer = allData.find(d => d.disc.toLowerCase() === p.disc.toLowerCase());
+          if (prPlayer && prPlayer.history) {
+            const results = prPlayer.history
+              .filter(h => h.wsp && h.placement)
+              .slice(0, 3) 
+              .map(h => `#${h.wsp}(${getOrdinal(h.placement)}/${h.entrants})`)
+              .join(", ");
+            if (results) historyText = results;
+          }
+        }
+
+        const tr = document.createElement('tr');
+        tr.className = 'draggable-row';
+        tr.setAttribute('draggable', 'true');
+        tr.dataset.index = i;
+        
+        tr.addEventListener('dragstart', handleDragStart);
+        tr.addEventListener('dragover', handleDragOver);
+        tr.addEventListener('dragenter', handleDragEnter);
+        tr.addEventListener('dragleave', handleDragLeave);
+        tr.addEventListener('drop', handleDrop);
+        tr.addEventListener('dragend', handleDragEnd);
+
+        tr.innerHTML = `
+          <td style="text-align:center;">${i+1}</td>
+          <td>${playerNameHtml} ${badge}</td>
+          <td style="font-size: 0.85rem; color: #8892b0; padding-right: 15px;">${historyText}</td>
+          <td style="text-align:right;">${p.score !== -1 ? p.score.toLocaleString() + "pt" : "-"}</td>
+        `;
+        tb.appendChild(tr);
+      });
+    }
+
+    function genSeed() {
+      document.getElementById("seed-loading").style.display = "block";
+      document.getElementById("resultArea").style.display = "none";
+      
+      let slug = document.getElementById("tSlug").value.trim().toLowerCase();
+      // ▼▼ CTPR専用のテスト用slugがあればここで変更します ▼▼
+      if (slug === "test") {
+        slug = "weekly-smash-party-test"; 
+      }
+      
+      fetch(GAS_URL + "?action=generateSeed&slug=" + encodeURIComponent(slug))
+        .then(res => res.json())
+        .then(res => {
+          document.getElementById("seed-loading").style.display = "none";
+          if (res.error) return alert(res.error);
+          
+          gId = res.eventId; 
+          gList = res.list;
+          document.getElementById("eventName").innerText = res.eventName + " (" + res.entrantsCount + "人)";
+          
+          applySavedSeedOrder();
+          renderSeedList();
+          
+          document.getElementById("resultArea").style.display = "block";
+        }).catch(err => {
+          document.getElementById("seed-loading").style.display = "none";
+          alert("エラーが発生しました: " + err.message);
+        });
+    }
+
+    function executeSeeding() {
+      if (!confirm("start.ggのシード順位を強制的に上書きします。よろしいですか？")) return;
+      
+      fetch(GAS_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify({ action: "updateSeed", eventId: gId, seedingList: gList })
+      })
+      .then(res => res.json())
+      .then(res => {
+        if (res.error) alert(res.error); else alert("✅ start.gg へのシード反映が完了しました！");
+      })
+      .catch(err => alert("通信エラー: " + err.message));
+    }
+  </script>
 </body>
 </html>
