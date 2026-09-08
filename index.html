@@ -46,11 +46,18 @@
     
     .player-card { border: 1px solid transparent; border-radius: 12px; padding: 24px; margin-bottom: 24px; background: linear-gradient(#05071D, #05071D) padding-box, linear-gradient(to right, #E84393, #FF8EB3) border-box; box-shadow: 0 4px 10px rgba(0,0,0,0.5); cursor: pointer; }
     .player-card:hover { background: linear-gradient(#161b22, #161b22) padding-box, linear-gradient(to right, #E84393, #FF8EB3) border-box; }
-    .header-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+    
+    /* ▼ 名前とスコアの位置を下揃えに変更 ▼ */
+    .header-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4px; }
     
     .rank-text { color: #FF8EB3; font-size: 1.5rem; font-weight: bold; margin: 0 0 4px 0; }
     .name-text { color: #ffffff; font-size: 2rem; font-weight: bold; margin: 0; word-break: break-all; }
-    .score-text { color: #FF8EB3; font-size: 2rem; font-weight: bold; } /* フォントサイズを少し大きく調整 */
+    
+    /* ▼ Score表記用の新スタイル ▼ */
+    .score-box { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+    .score-label { font-size: 0.85rem; color: #8892b0; margin-bottom: -4px; letter-spacing: 0.5px; }
+    .score-text { color: #FF8EB3; font-size: 2rem; font-weight: bold; } 
+    
     .links-row { display: flex; align-items: center; gap: 12px; margin-bottom: 4px;}
     
     .startgg-link { position: relative; z-index: 2; display: inline-flex; align-items: center; }
@@ -137,7 +144,8 @@
       <button class="admin-btn" onclick="openModal()">⚙️ シード設定</button>
     </div>
     
-    <details class="log-details" open>
+    <!-- ▼ アコーディオンをデフォルトで「閉じた状態」に変更しました（open属性を削除） ▼ -->
+    <details class="log-details">
       <summary class="log-summary">
         <span>🛠 アップデート情報</span>
       </summary>
@@ -275,7 +283,6 @@
       const startIndex = (page - 1) * itemsPerPage;
       const pageData = allData.slice(startIndex, startIndex + itemsPerPage);
 
-      // ▼ 1位のスコアを取得（対数圧縮の基準値として使用）
       const maxScore = allData.length > 0 ? allData[0].score : 1;
 
       pageData.forEach(player => {
@@ -296,23 +303,28 @@
                             <img src="${STARTGG_ICON_URL}" alt="start.gg" class="startgg-icon" onerror="this.outerHTML='start.gg'">
                            </a>`;
 
-        // ▼ 内部のポイントを100.00点満点のスコアに変換（対数圧縮） ▼
         let displayScore = 0;
         if (player.score > 0) {
            const logScore = Math.log10(player.score + 1);
            const logMax = Math.log10(maxScore + 1);
            displayScore = (logScore / logMax) * 100;
         }
-        const formattedScore = displayScore.toFixed(2); // 例: 97.50
+        const formattedScore = displayScore.toFixed(2);
 
         const card = document.createElement('div');
         card.className = 'player-card';
         card.setAttribute('onclick', 'toggleCard(this, event)');
         
-        // "pt"を削除し、純粋な100点満点のスコアに変更
+        // ▼ Scoreラベルを追加し、レイアウトを調整しました ▼
         card.innerHTML = `
           <div class="rank-text">${getOrdinal(player.rank)}</div>
-          <div class="header-row"><h2 class="name-text">${player.name}</h2><div class="score-text">${formattedScore}</div></div>
+          <div class="header-row">
+            <h2 class="name-text">${player.name}</h2>
+            <div class="score-box">
+              <div class="score-label">Score</div>
+              <div class="score-text">${formattedScore}</div>
+            </div>
+          </div>
           <div class="links-row">
             ${startGgHtml}
             <div class="disc-chip" onclick="copyDisc(event, '${player.disc}', this)" title="クリックしてコピー">📄 ${player.disc}</div>
@@ -416,7 +428,6 @@
       const tb = document.getElementById("seedListBody");
       tb.innerHTML = "";
       
-      // ▼ シード作成画面のテーブル用にも変換 ▼
       const maxScore = allData.length > 0 ? allData[0].score : 1;
 
       gList.forEach((p, i) => {
