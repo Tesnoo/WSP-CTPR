@@ -11,7 +11,7 @@
   <meta property="og:image" content="https://tesnoo.github.io/WSP-MTPR/sumapa_newlogo.png">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="WSP-CTPR">
-  <meta name="theme-color" content="#d60b59">
+  <meta name="theme-color" content="#E84393">
   <meta name="twitter:card" content="summary">
   <link rel="icon" href="https://tesnoo.github.io/WSP-MTPR/sumapa_newlogo.png">
   
@@ -21,90 +21,99 @@
     
     .container { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; }
     
+    /* ▼▼ シルバーグラデーションの魔法 ▼▼ */
+    .silver-gradient-text {
+      background: linear-gradient(135deg, #B0B5B9 0%, #FFFFFF 45%, #7D848A 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0px 2px 4px rgba(0,0,0,0.5); /* 立体感を少し追加 */
+    }
+    .silver-gradient-bg {
+      background: linear-gradient(135deg, #D7DADC 0%, #FFFFFF 40%, #8A95A5 100%);
+      color: #0b0c10;
+      font-weight: bold;
+    }
+    /* ▲▲ ここまで ▲▲ */
+
     .top-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; gap: 15px; }
     .search-container { display: flex; gap: 8px; flex: 1; max-width: 400px; }
-    /* ▼ ダークピンク枠に変更 ▼ */
-    .search-container input { flex: 1; padding: 10px 12px; background: #0b0c10; border: 1px solid #D60B59; color: #fff; border-radius: 8px; font-size: 0.95rem; }
-    /* ▼ ダークピンク枠 ＆ 明るいピンク文字に変更 ▼ */
-    .search-container button { padding: 10px 16px; background: linear-gradient(135deg, #1f2833, #0b0c10); border: 1px solid #D60B59; color: #FF66B2; border-radius: 8px; font-weight: bold; cursor: pointer; }
-    .admin-btn { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #1f2833, #0b0c10); border: 1px solid #D60B59; color: #FF66B2; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1rem; cursor: pointer; white-space: nowrap; }
     
-    .log-container { background: #1f2833; padding: 20px; border-radius: 12px; border: 1px solid #D60B59; box-sizing: border-box; margin-bottom: 24px; }
-    .log-container h3 { color:#FF66B2; margin-top:0; border-bottom:1px solid #D60B59; padding-bottom:10px; font-size: 1rem; display: flex; align-items: center; gap: 8px;}
+    /* ▼ 怖くない、発色の良いソフトなピンク (#E84393 と #FD79A8) ▼ */
+    .search-container input { flex: 1; padding: 10px 12px; background: #0b0c10; border: 1px solid #E84393; color: #fff; border-radius: 8px; font-size: 0.95rem; }
+    .search-container button { padding: 10px 16px; background: linear-gradient(135deg, #1f2833, #0b0c10); border: 1px solid #E84393; color: #FD79A8; border-radius: 8px; font-weight: bold; cursor: pointer; }
+    .admin-btn { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #1f2833, #0b0c10); border: 1px solid #E84393; color: #FD79A8; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1rem; cursor: pointer; white-space: nowrap; }
+    
+    .log-container { background: #1f2833; padding: 20px; border-radius: 12px; border: 1px solid #E84393; box-sizing: border-box; margin-bottom: 24px; }
+    .log-container h3 { color:#FD79A8; margin-top:0; border-bottom:1px solid #E84393; padding-bottom:10px; font-size: 1rem; display: flex; align-items: center; gap: 8px;}
     .log-list { list-style: none; padding: 0; margin: 0; }
     .log-list li { margin-bottom: 16px; font-size: 0.9rem; line-height: 1.6; color: #c5c6c7; }
     .log-list li:last-child { margin-bottom: 0; }
-    /* ▼ 日付のバッジは銀色に変更 ▼ */
-    .log-date { display: inline-block; background: #0b0c10; color: #E0E0E0; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-bottom: 6px; border: 1px solid #333; }
+    .log-date { display: inline-block; background: #0b0c10; color: #BDC3C7; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-bottom: 6px; border: 1px solid #333; }
     
     .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
-    /* ▼ ページボタンの枠と文字を銀色に ▼ */
-    .page-btn { background-color: #1f2833; border: 1px solid #E0E0E0; color: #E0E0E0; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.95rem;}
-    .page-btn.active { background-color: #E0E0E0; color: #000; }
+    .page-btn { background-color: #1f2833; border: 1px solid #7D848A; color: #BDC3C7; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.95rem;}
+    /* ▼ 選択中のページボタンはシルバーの光沢に ▼ */
+    .page-btn.active { background: linear-gradient(135deg, #D7DADC 0%, #FFFFFF 40%, #8A95A5 100%); color: #000; border: 1px solid #FFF; }
     .page-btn:disabled { background-color: #111; border-color: #333; color: #555; cursor: not-allowed; }
     
-    /* ▼ プレイヤーカードの枠と光彩を銀色に ▼ */
-    .player-card { border: 1px solid #E0E0E0; border-radius: 12px; padding: 24px; margin-bottom: 24px; background-color: #05071D; box-shadow: 0 4px 10px rgba(0,0,0,0.5); cursor: pointer; transition: background-color 0.4s ease, box-shadow 0.4s ease; }
+    /* ▼ カードの枠は少し落ち着いた銀色に ▼ */
+    .player-card { border: 1px solid #8A95A5; border-radius: 12px; padding: 24px; margin-bottom: 24px; background-color: #05071D; box-shadow: 0 4px 10px rgba(0,0,0,0.5); cursor: pointer; transition: background-color 0.4s ease, box-shadow 0.4s ease; }
     .player-card:hover { background-color: #161b22; }
     .header-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
-    .rank-text { color: #E0E0E0; font-size: 1.5rem; font-weight: bold; margin: 0 0 4px 0; }
+    
+    .rank-text { font-size: 1.5rem; font-weight: bold; margin: 0 0 4px 0; }
     .name-text { color: #ffffff; font-size: 2rem; font-weight: bold; margin: 0; word-break: break-all; }
-    .score-text { color: #E0E0E0; font-size: 1.8rem; font-weight: bold; }
-    .score-pt { font-size: 1rem; color: #c5c6c7; }
+    .score-text { font-size: 1.8rem; font-weight: bold; }
+    .score-pt { font-size: 1rem; }
     .links-row { display: flex; align-items: center; gap: 12px; margin-bottom: 4px;}
     
     .startgg-link { position: relative; z-index: 2; display: inline-flex; align-items: center; }
     .startgg-icon { height: 26px; width: auto; vertical-align: middle; border-radius: 4px; transition: transform 0.2s ease, opacity 0.2s ease; opacity: 0.9; }
     .startgg-icon:hover { transform: scale(1.1); opacity: 1; }
     
-    /* ▼ ディスコードチップ ホバー時にピンクへ ▼ */
     .disc-chip { background-color: #1f2833; border: 1px solid #333; padding: 4px 8px; border-radius: 6px; font-size: 0.85rem; color: #c5c6c7; position: relative; z-index: 2; cursor: pointer; transition: all 0.2s; }
-    .disc-chip:hover { background-color: #D60B59; color: #ffffff; border-color: #FF66B2; }
+    .disc-chip:hover { background-color: #E84393; color: #ffffff; border-color: #FD79A8; }
     
     .history-wrapper { display: none; margin-top: 24px; }
     .player-card.expanded .history-wrapper { display: block; }
     
-    /* ▼ リザルトカードの枠を銀色に ▼ */
     .history-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
-    .history-card { border: 1px solid #E0E0E0; border-radius: 12px; padding: 16px; background-color: #05071D; display: flex; flex-direction: column; transition: background-color 0.4s ease; }
+    .history-card { border: 1px solid #8A95A5; border-radius: 12px; padding: 16px; background-color: #05071D; display: flex; flex-direction: column; transition: background-color 0.4s ease; }
     .history-card:hover { background-color: #161b22; }
     .history-event { color: #ffffff; font-size: 1.3rem; font-weight: bold; margin-bottom: 4px; }
     .history-date { color: #c5c6c7; font-size: 0.85rem; margin-bottom: 20px; }
-    .history-place { color: #ffffff; font-size: 2rem; font-weight: bold; text-align: center; margin-top: auto; }
+    .history-place { font-size: 2rem; font-weight: bold; text-align: center; margin-top: auto; }
     
     table { width: 100%; border-collapse: collapse; border-top: 1px solid #333; }
     th { text-align: left; color: #8892b0; font-size: 0.9rem; padding: 12px 8px 8px 8px; border-bottom: 1px solid #333; }
     td { padding: 12px 8px; font-size: 0.95rem; border-bottom: 1px solid #333; }
     .place-col { text-align: right; }
     
-    #loading { text-align: center; color: #E0E0E0; font-size: 1.1rem; margin-top: 50px; line-height: 1.6; }
+    #loading { text-align: center; color: #BDC3C7; font-size: 1.1rem; margin-top: 50px; line-height: 1.6; }
     
-    /* ▼ モーダルの配色をピンク系に ▼ */
     #password-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 7, 29, 0.9); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; visibility: hidden; }
     #password-modal.show { opacity: 1; visibility: visible; }
-    .modal-box { background: #1f2833; padding: 30px; border-radius: 12px; border: 1px solid #D60B59; text-align: center; max-width: 350px; width: 90%; }
-    .modal-box input { width: 100%; padding: 12px; margin: 15px 0; background: #0b0c10; border: 1px solid #D60B59; color: #fff; border-radius: 8px; box-sizing: border-box; text-align: center; }
-    .modal-box button { width: 100%; padding: 12px; background: linear-gradient(135deg, #D60B59, #FF66B2); color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 10px; }
+    .modal-box { background: #1f2833; padding: 30px; border-radius: 12px; border: 1px solid #E84393; text-align: center; max-width: 350px; width: 90%; }
+    .modal-box input { width: 100%; padding: 12px; margin: 15px 0; background: #0b0c10; border: 1px solid #E84393; color: #fff; border-radius: 8px; box-sizing: border-box; text-align: center; }
+    .modal-box button { width: 100%; padding: 12px; background: linear-gradient(135deg, #E84393, #FD79A8); color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 10px; }
     .modal-box button.cancel { background: #333; color: #fff; }
     
     .back-btn { display: inline-flex; align-items: center; gap: 8px; background: #1f2833; border: 1px solid #8892b0; color: #c5c6c7; padding: 10px 20px; border-radius: 8px; font-weight: bold; font-size: 0.95rem; cursor: pointer; margin-bottom: 24px; }
-    
-    /* ▼ シード作成画面の配色 ▼ */
     .seed-input-group { background: #1f2833; padding: 25px; border-radius: 12px; border: 1px solid #333; margin-bottom: 20px; display: flex; gap: 15px; }
-    .seed-input-group input { flex: 1; padding: 12px; background: #0b0c10; border: 1px solid #D60B59; color: #fff; border-radius: 8px; }
-    .seed-input-group button { padding: 12px 24px; background: #E0E0E0; color: #000; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
-    .auto-update-btn { width: 100%; padding: 16px; font-size: 1.1rem; background: linear-gradient(135deg, #D60B59, #FF66B2); color: #fff; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; margin-bottom: 20px; }
+    .seed-input-group input { flex: 1; padding: 12px; background: #0b0c10; border: 1px solid #E84393; color: #fff; border-radius: 8px; }
+    /* ▼ シード作成ボタンもシルバー光沢に ▼ */
+    .seed-input-group button { border: none; border-radius: 8px; font-weight: bold; cursor: pointer; padding: 12px 24px; }
+    .auto-update-btn { width: 100%; padding: 16px; font-size: 1.1rem; background: linear-gradient(135deg, #E84393, #FD79A8); color: #fff; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; margin-bottom: 20px; }
     
     .champ-badge { background: #e91e63; color: #ffffff; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; margin-left: 6px; }
     .player-link { color: #ffffff; text-decoration: none; font-weight: bold; transition: color 0.2s; }
-    .player-link:hover { color: #FF66B2; text-decoration: underline; }
+    .player-link:hover { color: #FD79A8; text-decoration: underline; }
     
     .draggable-row { cursor: grab; transition: background-color 0.2s; }
     .draggable-row:active { cursor: grabbing; }
     .draggable-row:hover { background-color: #161b22; }
-    .drag-over { border-top: 2px solid #FF66B2; background-color: #1f2833 !important; }
+    .drag-over { border-top: 2px solid #FD79A8; background-color: #1f2833 !important; }
     
-    /* スマホ画面での調整 */
     @media (max-width: 600px) {
       .top-controls { flex-direction: column; align-items: stretch; margin-bottom: 16px; } 
       .search-container { max-width: 100%; } 
@@ -114,7 +123,7 @@
       .history-grid { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 12px; padding-bottom: 10px; -webkit-overflow-scrolling: touch; }
       .history-grid::-webkit-scrollbar { height: 4px; }
       .history-grid::-webkit-scrollbar-track { background: transparent; }
-      .history-grid::-webkit-scrollbar-thumb { background: #D60B59; border-radius: 4px; }
+      .history-grid::-webkit-scrollbar-thumb { background: #E84393; border-radius: 4px; }
       .history-card { flex: 0 0 130px; padding: 12px; }
       .history-event { font-size: 1.1rem; margin-bottom: 2px; }
       .history-date { font-size: 0.75rem; margin-bottom: 12px; }
@@ -126,7 +135,8 @@
 
   <div id="password-modal">
     <div class="modal-box">
-      <h3 style="color:#FF66B2; margin-top:0;">管理者認証 (CTPR)</h3>
+      <!-- (CTPR) を削除しました -->
+      <h3 style="color:#FD79A8; margin-top:0;">管理者認証</h3>
       <input type="password" id="authPassword" placeholder="パスワードを入力" onkeypress="if(event.key==='Enter') checkPassword()">
       <button onclick="checkPassword()">ログイン</button>
       <button class="cancel" onclick="closeModal()">キャンセル</button>
@@ -144,10 +154,12 @@
     </div>
     
     <div class="log-container">
-      <h3>🛠 アップデート情報 (CTPR)</h3>
+      <!-- (CTPR) を削除しました -->
+      <h3>🛠 アップデート情報</h3>
       <ul class="log-list">
         <li>
-          <span class="log-date">2026.08.24</span><br>
+          <!-- 日付を2026.09.09に修正しました -->
+          <span class="log-date">2026.09.09</span><br>
           ・MTPRの最新システムをCTPRにも適用<br>
           ・テーマカラーをピンク×シルバーに変更<br>
           ・ランキングをAPI通信化し爆速化
@@ -164,14 +176,15 @@
 
   <div id="view-seeding" class="container hidden">
     <button class="back-btn" onclick="showRanking()">↩️ ランキングに戻る</button>
-    <h1 style="color:#E0E0E0; text-align:center;">CTPR Seeding Tool</h1>
+    <!-- タイトルにシルバーグラデーションを適用 -->
+    <h1 class="silver-gradient-text" style="text-align:center;">CTPR Seeding Tool</h1>
     <div class="seed-input-group">
       <input type="text" id="tSlug" placeholder="大会番号 (例: 240) または test を入力" onkeypress="if(event.key==='Enter') genSeed()">
-      <button onclick="genSeed()">シード作成</button>
+      <button class="silver-gradient-bg" onclick="genSeed()">シード作成</button>
     </div>
-    <div id="seed-loading" style="display:none; text-align:center; color:#E0E0E0;">処理中...</div>
+    <div id="seed-loading" style="display:none; text-align:center; color:#BDC3C7;">処理中...</div>
     <div id="resultArea" style="display:none;">
-      <h2 id="eventName" style="color:#FF66B2; text-align:center;"></h2>
+      <h2 id="eventName" style="color:#FD79A8; text-align:center;"></h2>
       <button class="auto-update-btn" onclick="executeSeeding()">🚀 start.ggへシードを自動反映する</button>
       
       <p style="color:#8892b0; font-size:0.9rem; text-align:right; margin-bottom:5px;">※行をドラッグ＆ドロップで手動並び替えできます</p>
@@ -226,8 +239,7 @@
       navigator.clipboard.writeText(text).then(() => {
         const originalHtml = el.innerHTML;
         el.innerHTML = "✅ Copied!";
-        // ▼ コピー成功時の色もピンク系に ▼
-        el.style.backgroundColor = "#D60B59";
+        el.style.backgroundColor = "#E84393";
         el.style.color = "#ffffff";
         setTimeout(() => {
           el.innerHTML = originalHtml;
@@ -249,8 +261,7 @@
           const indexOnPage = index % itemsPerPage;
           if (cards[indexOnPage]) {
             cards[indexOnPage].scrollIntoView({ behavior: 'smooth', block: 'center' });
-            // ▼ 検索該当時の光彩をピンクに ▼
-            cards[indexOnPage].style.boxShadow = '0 0 25px #FF66B2';
+            cards[indexOnPage].style.boxShadow = '0 0 25px #FD79A8';
             cards[indexOnPage].style.backgroundColor = '#1f2833';
             setTimeout(() => { cards[indexOnPage].style.boxShadow = ''; cards[indexOnPage].style.backgroundColor = ''; }, 2000);
           }
@@ -268,11 +279,12 @@
         let historyHtml = '';
         player.history.forEach(h => { 
           if (h.wsp && h.placement) {
+            // リザルトの順位テキストにもシルバーグラデーションを適用
             historyHtml += `
               <div class="history-card">
                 <div class="history-event">#${h.wsp}</div>
                 <div class="history-date">${h.dateStr}</div>
-                <div class="history-place">${getOrdinal(h.placement)}/${h.entrants}</div>
+                <div class="history-place silver-gradient-text">${getOrdinal(h.placement)}/${h.entrants}</div>
               </div>
             `;
           } 
@@ -286,9 +298,10 @@
         card.className = 'player-card';
         card.setAttribute('onclick', 'toggleCard(this, event)');
         
+        // 順位(rank-text)とスコア(score-text)にシルバーグラデーションを適用
         card.innerHTML = `
-          <div class="rank-text">${getOrdinal(player.rank)}</div>
-          <div class="header-row"><h2 class="name-text">${player.name}</h2><div class="score-text">${player.score.toLocaleString()}<span class="score-pt">pt</span></div></div>
+          <div class="rank-text silver-gradient-text">${getOrdinal(player.rank)}</div>
+          <div class="header-row"><h2 class="name-text">${player.name}</h2><div class="score-text silver-gradient-text">${player.score.toLocaleString()}<span class="score-pt">pt</span></div></div>
           <div class="links-row">
             ${startGgHtml}
             <div class="disc-chip" onclick="copyDisc(event, '${player.disc}', this)" title="クリックしてコピー">📄 ${player.disc}</div>
@@ -309,7 +322,7 @@
         if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
           html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePageWithScroll(${i})">${i}</button>`;
         } else if (i === currentPage - 3 || i === currentPage + 3) {
-          html += `<span style="color:#ffd700; padding:0 4px;">...</span>`;
+          html += `<span style="color:#BDC3C7; padding:0 4px;">...</span>`;
         }
       }
       html += `<button class="page-btn" onclick="changePageWithScroll(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next &gt;</button>`;
